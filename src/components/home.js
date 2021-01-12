@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Link } from 'react-router-dom';
+import ReactDOM from "react-dom";
+import DetailsRoute from './route';
 
 export default class home extends React.Component {
     constructor(props) {
@@ -47,6 +50,7 @@ export default class home extends React.Component {
 
 
 fetchDataFromYelp(){
+
     fetch("http://localhost:3001" + '/getData', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -56,33 +60,30 @@ fetchDataFromYelp(){
         this.setState({rest_list : response});
         console.log(this.state.rest_list);
     }.bind(this));
+
 }
 
-
-
-
-
-
-
- 
 
     render() {
 
       return(
   
-        <div>
-        
+        <div>        
         <h1>Restaurant Finder</h1>
-
-
-
         {this.state.rest_list.map(rest =>
                 (
-                <div>
-                <h3>Name: {rest['name']} Location: {rest['location']['address1']}</h3>
+                <div class="restaurant-list">
+                <h3>Name: {rest['name']}</h3>
+                <h3>Location: {rest['location']['address1']} {rest['location']['city']},{rest['location']['state']}</h3>
+
+                    
+                <BrowserRouter>
+                    <Link target="_blank" to={"/details/" + rest['id']}>View Details</Link>
+                 </BrowserRouter>
+
                  </div>))
         
-                 } 
+                 }  
         </div>
 
   

@@ -28,11 +28,15 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.restaurant-list{
+  margin: auto;
+  border-width:5px;  
+  border-style:ridge;
+  border-radius: .35rem;
+  background-color: #DAE0E6;
+  border-width: 2px;
+  width: auto;
+  max-width: 600px;
+  margin-bottom: 10px;
+  word-wrap: break-word;
 }
