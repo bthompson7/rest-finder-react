@@ -22,7 +22,6 @@ API_KEY = 'fmChFJUPUIcL7nfSRgcW8mnOPLHII5qnGvzvPh9E9fr2zXck2xNVFdOWjKzCn8qTt6mkd
 print("Starting Up...")
 MAX_RESULTS = 50
 
-'''
 @app.route('/restaurant/<string:id>', methods=['POST'])
 def displayRestaurantDetails(id):
     someData = id
@@ -34,9 +33,7 @@ def displayRestaurantDetails(id):
     except:
         restHasHoursListed = False
     print(dataFromApi)
-    return render_template('details.html',**locals())
-
-'''
+    return dataFromApi
 
 
 @app.route('/getData', methods=['POST'])
