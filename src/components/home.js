@@ -9,12 +9,14 @@ export default class home extends React.Component {
 
         this.componentDidMount = this.componentDidMount.bind(this);
         this.fetchDataFromYelp = this.fetchDataFromYelp.bind(this);
+
         this.state = {
 
           rest_list:[],
           lat:"",
           lng:"",
-          dataLoaded:false
+          dataLoaded:false,
+          currentMealType:""
  
         };
     }
@@ -60,10 +62,40 @@ fetchDataFromYelp(){
     .then(function(response){
         this.setState({rest_list : response});
         this.setState({dataLoaded:true})
+        this.setState({currentMealType:"lunch"});
+
 
     }.bind(this));
 
 }
+
+
+
+
+changeMealType(meal){
+  this.setState({dataLoaded:false})
+
+ // alert("Changing meal type" + meal)
+  fetch("http://localhost:3001" + '/getData', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({lat: this.state.lat,lng: this.state.lng, type:"rest", meal_type:meal}),
+  }).then(response => response.json())
+  .then(function(response){
+      this.setState({rest_list : response});
+      this.setState({dataLoaded:true});
+      this.setState({currentMealType:meal});
+
+  }.bind(this));
+}
+
+
+changeMealType2(meal){
+ console.log("meal"+ meal)
+
+  
+}
+
 
 
     render() {
@@ -79,14 +111,26 @@ fetchDataFromYelp(){
       }else{
         return(
   
-          <div>        
+          <div class="main">        
+          
+           <div class="page-header">
           <h1>Restaurant Finder</h1>
+          <hr/>
+
+          <button class="button" onClick={() => { this.changeMealType('breakfast') }}>Breakfast</button>
+          <button class="button" onClick={() => { this.changeMealType('lunch')}}>Lunch</button>
+          <button class="button" onClick={() => { this.changeMealType('dinner') }}>Dinner</button>
+          <h3>Currently displaying restaurants that serve {this.state.currentMealType}</h3>
+
+          </div>
+
           {this.state.rest_list.map(rest =>
                   (
                   <div class="restaurant-list">
-                  <h3>Name: {rest['name']}</h3>
-                  <h3>Location: {rest['location']['address1']} {rest['location']['city']},{rest['location']['state']}</h3>
+                  <h3>{rest['name']}</h3>
+                  <h3>{rest['location']['address1']} {rest['location']['city']},{rest['location']['state']}</h3>
   
+                  <h3>This restaurant is {Math.round(rest['distance'] / 1609)} miles away</h3>
                       
                   <BrowserRouter>
                       <Link target="_blank" to={"/details/" + rest['id']}>View Details</Link>
