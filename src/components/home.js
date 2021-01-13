@@ -14,6 +14,7 @@ export default class home extends React.Component {
           rest_list:[],
           lat:"",
           lng:"",
+          dataLoaded:false
  
         };
     }
@@ -58,7 +59,8 @@ fetchDataFromYelp(){
     }).then(response => response.json())
     .then(function(response){
         this.setState({rest_list : response});
-        console.log(this.state.rest_list);
+        this.setState({dataLoaded:true})
+
     }.bind(this));
 
 }
@@ -66,28 +68,39 @@ fetchDataFromYelp(){
 
     render() {
 
-      return(
+      if(!this.state.dataLoaded){
+        return (
+          <div>
+          <h1>Finding Nearby Restaurants...</h1>
+          <div class="loader"></div>
+
+          </div>
+        )
+      }else{
+        return(
   
-        <div>        
-        <h1>Restaurant Finder</h1>
-        {this.state.rest_list.map(rest =>
-                (
-                <div class="restaurant-list">
-                <h3>Name: {rest['name']}</h3>
-                <h3>Location: {rest['location']['address1']} {rest['location']['city']},{rest['location']['state']}</h3>
-
-                    
-                <BrowserRouter>
-                    <Link target="_blank" to={"/details/" + rest['id']}>View Details</Link>
-                 </BrowserRouter>
-
-                 </div>))
-        
-                 }  
-        </div>
-
+          <div>        
+          <h1>Restaurant Finder</h1>
+          {this.state.rest_list.map(rest =>
+                  (
+                  <div class="restaurant-list">
+                  <h3>Name: {rest['name']}</h3>
+                  <h3>Location: {rest['location']['address1']} {rest['location']['city']},{rest['location']['state']}</h3>
   
-      )
+                      
+                  <BrowserRouter>
+                      <Link target="_blank" to={"/details/" + rest['id']}>View Details</Link>
+                   </BrowserRouter>
+  
+                   </div>))
+          
+                   }  
+          </div>
+  
+    
+        )
+      }
+      
     }
 
   }
