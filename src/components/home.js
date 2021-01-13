@@ -57,7 +57,7 @@ export default class home extends React.Component {
 
 fetchDataFromYelp(){
 
-    fetch("http://localhost:3001" + '/getData', {
+    fetch('/getData', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({lat: this.state.lat,lng: this.state.lng, type:"rest", meal_type:"lunch"}),
