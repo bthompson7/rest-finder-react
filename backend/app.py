@@ -60,7 +60,5 @@ def getdata():
     response = Response(json.dumps(restList),  mimetype='application/json')
     return response
 
-resource = WSGIResource(reactor, reactor.getThreadPool(), app)
-site = Site(resource)
-reactor.listenTCP(3001, site)
-reactor.run()
+if __name__ == '__main__':
+        app.run(port=3001)
