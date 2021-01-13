@@ -1,6 +1,7 @@
 requests==2.22.0
 requests-unixsocket==0.1.5
 Flask==1.1.1
+Flask-Cors==3.0.8
 Jinja2==2.11.1
 jsonpatch==1.23
 jsonpointer==2.0
