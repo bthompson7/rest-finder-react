@@ -3,12 +3,6 @@ import threading
 from apicall import Yelp
 from flask import Flask,render_template, jsonify,request,Response
 
-#twisted
-from twisted.internet import reactor
-from twisted.web.proxy import ReverseProxyResource
-from twisted.web.resource import Resource
-from twisted.web.server import Site
-from twisted.web.wsgi import WSGIResource
 from flask_cors import CORS
 
 app = Flask(__name__, static_folder='../build', static_url_path='/')
@@ -69,4 +63,4 @@ def getdata():
     return response
 
 if __name__ == '__main__':
-        app.run(port=3001)
+        app.run()
