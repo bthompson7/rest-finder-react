@@ -60,7 +60,7 @@ export default class Restaurant extends React.Component {
                 <h3>Price: {this.state.rest_details['price']}</h3>
                 <h3>Location: {this.state.rest_details['location']['display_address'][0]} {this.state.rest_details['location']['display_address'][1]}</h3>
 
-                <RestaurantMap location={this.state.rest_details['coordinates']}/>
+                <RestaurantMap details={this.state.rest_details}/>
                 </div>
 
 

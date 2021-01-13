@@ -1,0 +1,10 @@
+request
+requests
+requests-unixsocket
+Flask
+Jinja2
+jsonpatch
+jsonpointer
+urllib3
+args
+gunicorn

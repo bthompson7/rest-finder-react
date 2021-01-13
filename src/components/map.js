@@ -37,14 +37,14 @@ export default class ShowMap extends React.Component {
         
         return(
 <div class="map">
-<MapContainer center={[this.props.location['latitude'], this.props.location['longitude']]} zoom={17} scrollWheelZoom={false} style={{ height: "100vh"}}>
+<MapContainer center={[this.props.details['coordinates']['latitude'], this.props.details['coordinates']['longitude']]} zoom={17} scrollWheelZoom={false} style={{ height: "100vh"}}>
   <TileLayer
     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
   />
-  <Marker position={[this.props.location['latitude'], this.props.location['longitude']]}>
+  <Marker position={[this.props.details['coordinates']['latitude'], this.props.details['coordinates']['longitude']]}>
     <Popup>
-      A pretty CSS3 popup
+      {this.props.details['name']}
     </Popup>
   </Marker>
 </MapContainer>
