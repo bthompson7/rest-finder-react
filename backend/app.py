@@ -11,7 +11,7 @@ from twisted.web.server import Site
 from twisted.web.wsgi import WSGIResource
 from flask_cors import CORS
 
-app = Flask(__name__, static_folder='./build', static_url_path='/')
+app = Flask(__name__, static_folder='../build', static_url_path='/')
 app.debug = False
 CORS(app)
 
@@ -25,7 +25,7 @@ MAX_RESULTS = 50
 @app.route('/')
 def index():
     return app.send_static_file('index.html')
-    
+
 @app.errorhandler(404)
 def not_found(e):
     return app.send_static_file('index.html')
