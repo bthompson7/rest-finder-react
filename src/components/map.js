@@ -1,8 +1,20 @@
 import React, { Component, useState, useEffect } from 'react';
 import ReactDOM from "react-dom";
 import 'leaflet/dist/leaflet.css';
-
+import L from 'leaflet';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+
+//to make the marker icon show up
+//See: https://github.com/PaulLeCam/react-leaflet/issues/453
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+
+let DefaultIcon = L.icon({
+    iconUrl: icon,
+    shadowUrl: iconShadow
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
 
 export default class ShowMap extends React.Component {
     constructor(props) {
@@ -22,7 +34,6 @@ export default class ShowMap extends React.Component {
 
     render() {
      
-        console.log(this.props.location['latitude'] + " " + this.props.location['longitude']);
         
         return(
 <div class="map">
@@ -33,7 +44,7 @@ export default class ShowMap extends React.Component {
   />
   <Marker position={[this.props.location['latitude'], this.props.location['longitude']]}>
     <Popup>
-      A pretty CSS3 popup. <br /> Easily customizable.
+      A pretty CSS3 popup
     </Popup>
   </Marker>
 </MapContainer>
