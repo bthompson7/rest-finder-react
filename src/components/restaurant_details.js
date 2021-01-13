@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from 'react';
-import ShowMap from './map.js';
+import RestaurantMap from './map.js';
 
 
 export default class Restaurant extends React.Component {
@@ -8,7 +8,9 @@ export default class Restaurant extends React.Component {
 
        this.state = {
            rest_details:{},
-           dataLoaded : false
+           dataLoaded : false,
+           lat:null,
+           lng:null
        };
 
        
@@ -51,16 +53,14 @@ export default class Restaurant extends React.Component {
         }else{
             return(
                 <div>
-                <h1>Restaurant Details for {this.state.rest_details['name']}</h1>
+                <h1>{this.state.rest_details['name']}</h1>
                 <hr/>
                 <h3>Phone: {this.state.rest_details['display_phone']}</h3>
                 <h3>{this.state.rest_details['rating']} / 5 based on {this.state.rest_details['review_count']} reviews</h3>
                 <h3>Price: {this.state.rest_details['price']}</h3>
                 <h3>Location: {this.state.rest_details['location']['display_address'][0]} {this.state.rest_details['location']['display_address'][1]}</h3>
 
-
-
-                <ShowMap/>
+                <RestaurantMap location={this.state.rest_details['coordinates']}/>
                 </div>
 
 

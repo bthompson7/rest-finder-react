@@ -24,6 +24,9 @@ export default class home extends React.Component {
     //get geolocation from user
     componentDidMount(){
 
+
+      //check if on a mobile device to alert the user to turn on location services
+
       var lat = this.state.lat;
       var lng = this.state.lng;
 
@@ -120,7 +123,7 @@ changeMealType2(meal){
           <button class="button" onClick={() => { this.changeMealType('breakfast') }}>Breakfast</button>
           <button class="button" onClick={() => { this.changeMealType('lunch')}}>Lunch</button>
           <button class="button" onClick={() => { this.changeMealType('dinner') }}>Dinner</button>
-          <h3>Currently displaying restaurants that serve {this.state.currentMealType}</h3>
+          <h3>Currently displaying {this.state.rest_list.length} restaurants that serve {this.state.currentMealType}</h3>
 
           </div>
 
@@ -129,9 +132,7 @@ changeMealType2(meal){
                   <div class="restaurant-list">
                   <h3>{rest['name']}</h3>
                   <h3>{rest['location']['address1']} {rest['location']['city']},{rest['location']['state']}</h3>
-  
-                  <h3>This restaurant is {Math.round(rest['distance'] / 1609)} miles away</h3>
-                      
+
                   <BrowserRouter>
                       <Link target="_blank" to={"/details/" + rest['id']}>View Details</Link>
                    </BrowserRouter>
