@@ -25,10 +25,6 @@ export default class ShowMap extends React.Component {
            lat:null,
            lng:null
        };
-
-       
-
-
     }
 
 
@@ -52,9 +48,6 @@ export default class ShowMap extends React.Component {
 
 
         )
-        
-        }
-        
-        
+        }       
 }
 
