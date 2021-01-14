@@ -28,6 +28,8 @@ Fast Food (hotdogs, All)
 # API constants
 API_HOST = 'https://api.yelp.com'
 SEARCH_PATH = '/v3/businesses/search'
+API_KEY = 'fmChFJUPUIcL7nfSRgcW8mnOPLHII5qnGvzvPh9E9fr2zXck2xNVFdOWjKzCn8qTt6mkdg1INZOrCh78rmI8nDoktA9hJaBlgHYrdRbAO83z2_qMtSQzfOtdNhdlXnYx'
+
 
 class Yelp:
     def __init__(self):
@@ -71,7 +73,6 @@ class Yelp:
 helper function
 '''
 def find(host, path, url_params=None):
-    API_KEY = os.environ['API_KEY']
     url_params = url_params or {}
     url = '{0}{1}'.format(host, quote(path.encode('utf8')))
     headers = {
