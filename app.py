@@ -9,10 +9,6 @@ app = Flask(__name__, static_folder='./build', static_url_path='/')
 app.debug = False
 CORS(app)
 
-#eventually => API_KEY = os.environ['API_KEY'] to hide the API key in a production system like heroku, aws etc...
-API_KEY = 'fmChFJUPUIcL7nfSRgcW8mnOPLHII5qnGvzvPh9E9fr2zXck2xNVFdOWjKzCn8qTt6mkdg1INZOrCh78rmI8nDoktA9hJaBlgHYrdRbAO83z2_qMtSQzfOtdNhdlXnYx'
-
-
 print("Starting Up...")
 MAX_RESULTS = 50
 
