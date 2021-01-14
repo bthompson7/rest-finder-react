@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter, Link } from 'react-router-dom';
-import ReactDOM from "react-dom";
-import DetailsRoute from './route';
+import ScrollUpButton from "react-scroll-up-button";
 
 export default class home extends React.Component {
     constructor(props) {
@@ -23,10 +22,6 @@ export default class home extends React.Component {
 
     //get geolocation from user
     componentDidMount(){
-
-
-      //check if on a mobile device to alert the user to turn on location services
-
       var lat = this.state.lat;
       var lng = this.state.lng;
 
@@ -57,7 +52,7 @@ export default class home extends React.Component {
 
 fetchDataFromYelp(){
 
-    fetch('/getData', {
+    fetch('http://localhost:3001/getData', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({lat: this.state.lat,lng: this.state.lng, type:"rest", meal_type:"lunch"}),
@@ -78,8 +73,7 @@ fetchDataFromYelp(){
 changeMealType(meal){
   this.setState({dataLoaded:false})
 
- // alert("Changing meal type" + meal)
-  fetch('/getData', {
+  fetch('http://localhost:3001/getData', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({lat: this.state.lat,lng: this.state.lng, type:"rest", meal_type:meal}),
@@ -92,17 +86,9 @@ changeMealType(meal){
   }.bind(this));
 }
 
-
-changeMealType2(meal){
- console.log("meal"+ meal)
+render() {
 
   
-}
-
-
-
-    render() {
-
       if(!this.state.dataLoaded){
         return (
           <div>
@@ -115,10 +101,12 @@ changeMealType2(meal){
         return(
   
           <div class="main">        
-          
+          <ScrollUpButton />
+
            <div class="page-header">
           <h1>Restaurant Finder</h1>
           <hr/>
+
 
           <button class="button" onClick={() => { this.changeMealType('breakfast') }}>Breakfast</button>
           <button class="button" onClick={() => { this.changeMealType('lunch')}}>Lunch</button>
@@ -141,6 +129,7 @@ changeMealType2(meal){
           
                    }  
           </div>
+          
   
     
         )

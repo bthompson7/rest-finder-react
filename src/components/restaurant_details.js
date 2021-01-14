@@ -1,5 +1,6 @@
-import React, { Component, useState, useEffect } from 'react';
+import React from 'react';
 import RestaurantMap from './map.js';
+import ScrollUpButton from "react-scroll-up-button";
 
 
 export default class Restaurant extends React.Component {
@@ -8,9 +9,7 @@ export default class Restaurant extends React.Component {
 
        this.state = {
            rest_details:{},
-           dataLoaded : false,
-           lat:null,
-           lng:null
+           dataLoaded : false
        };
 
        
@@ -23,7 +22,7 @@ export default class Restaurant extends React.Component {
     console.log("Fetching restaurant details");
 
 
-    fetch('/restaurant/' + this.props.match.params.id, {
+    fetch('http://localhost:3001/restaurant/' + this.props.match.params.id, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({lat: this.state.lat,lng: this.state.lng, type:"rest", meal_type:"lunch"}),
@@ -38,10 +37,10 @@ export default class Restaurant extends React.Component {
       }.bind(this));
     }
 
-
-
-
     render() {
+
+
+        
         if(!this.state.dataLoaded){
             return (
                 <div>
@@ -53,25 +52,20 @@ export default class Restaurant extends React.Component {
         }else{
             return(
                 <div>
+                <ScrollUpButton />
+
                 <h1>{this.state.rest_details['name']}</h1>
                 <hr/>
                 <h3>Phone: {this.state.rest_details['display_phone']}</h3>
                 <h3>{this.state.rest_details['rating']} / 5 based on {this.state.rest_details['review_count']} reviews</h3>
                 <h3>Price: {this.state.rest_details['price']}</h3>
                 <h3>Location: {this.state.rest_details['location']['display_address'][0]} {this.state.rest_details['location']['display_address'][1]}</h3>
+                <h3>Hours: {this.state.rest_details['hours'][0]['open'][0]['start']} until {this.state.rest_details['hours'][0]['open'][0]['end']}</h3>
 
                 <RestaurantMap details={this.state.rest_details}/>
                 </div>
-
-
                 )
-        
+        }    
         }
-            
-       
-        
-        }
-
-        
 }
 
