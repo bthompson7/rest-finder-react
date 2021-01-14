@@ -23,7 +23,7 @@ export default class Restaurant extends React.Component {
     console.log("Fetching restaurant details");
 
 
-    fetch('https://rest-finder-react.herokuapp.com/restaurant/' + this.props.match.params.id, {
+    fetch('/restaurant/' + this.props.match.params.id, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({lat: this.state.lat,lng: this.state.lng, type:"rest", meal_type:"lunch"}),
