@@ -9,13 +9,18 @@ export default class Restaurant extends React.Component {
 
        this.state = {
            rest_details:{},
-           dataLoaded : false
+           dataLoaded : false,
+           showImages: false,
+           showImagesButton:"Show Images"
        };
 
        
+       this.showPhotos = this.showPhotos.bind(this);
 
 
     }
+
+
 
     componentDidMount(){
 
@@ -37,9 +42,39 @@ export default class Restaurant extends React.Component {
       }.bind(this));
     }
 
+
+    showPhotos(){
+
+        if(!this.state.showImages){
+            this.setState({showImages:true})
+            this.setState({showImagesButton:"Hide Images"})
+        }else if(this.state.showImages){
+            this.setState({showImages:false})
+            this.setState({showImagesButton:"Show Images"})
+
+
+        }
+
+    }
+
     render() {
 
 
+
+            
+        const displayImages = (photosArray) => {
+          
+            if(this.state.showImages){
+                return(
+                    <div class="images-container">
+                    <img src={photosArray[0]}></img>
+                    <img src={photosArray[1]}></img>
+                    <img src={photosArray[2]}></img>
+                    </div>
+                    ) 
+            }
+              
+      }
         
         if(!this.state.dataLoaded){
             return (
@@ -61,6 +96,10 @@ export default class Restaurant extends React.Component {
                 <h3>Price: {this.state.rest_details['price']}</h3>
                 <h3>Location: {this.state.rest_details['location']['display_address'][0]} {this.state.rest_details['location']['display_address'][1]}</h3>
                 <h3>Hours: {this.state.rest_details['hours'][0]['open'][0]['start']} until {this.state.rest_details['hours'][0]['open'][0]['end']}</h3>
+                <button class="button" onClick={() => { this.showPhotos() }}>{this.state.showImagesButton}</button>
+
+                
+                {displayImages(this.state.rest_details['photos'])}
 
                 <RestaurantMap details={this.state.rest_details}/>
                 </div>
