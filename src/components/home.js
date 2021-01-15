@@ -14,6 +14,7 @@ export default class home extends React.Component {
           rest_list:[],
           search_list:[],
           searchString:"",
+          searchRegex:"[a-zA-Z[ ]*[0-9]*]+",
           lat:"",
           lng:"",
           dataLoaded:false,
@@ -56,7 +57,7 @@ search(){
 
 
   if(this.state.search_list.length > 0){
-    this.setState({search_list:[]})
+    this.state.search_list = [];
   }
 
   for(var i=0; i < this.state.rest_list.length; i++){
@@ -144,7 +145,7 @@ render() {
           <h3>Currently displaying {this.state.rest_list.length} restaurants that serve {this.state.currentMealType}</h3>
 
 
-          <input onChange={event => this.setState({searchString:event.target.value})} id="searchInputElement" pattern="[a-zA-Z]+" placeholder="Search for a location or restaurant"></input>
+          <input onChange={event => this.setState({searchString:event.target.value})} pattern={this.state.searchRegex} id="searchInputElement" placeholder="Search for a location or restaurant"></input>
           <button class="button" onClick={() => { this.search()}}>Search</button>
 
 
@@ -182,7 +183,7 @@ render() {
           <h3>Currently displaying {this.state.search_list.length} restaurants that serve {this.state.currentMealType}</h3>
 
 
-          <input onChange={event => this.setState({searchString:event.target.value})} id="searchInputElement" pattern="[a-zA-Z]+" placeholder="Search for a location or restaurant"></input>
+          <input onChange={event => this.setState({searchString:event.target.value})} id="searchInputElement" pattern={this.state.searchRegex} placeholder="Search for a location or restaurant"></input>
           <button class="button" onClick={() => { this.search()}}>Search</button>
 
 
