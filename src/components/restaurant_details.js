@@ -27,7 +27,7 @@ export default class Restaurant extends React.Component {
     console.log("Fetching restaurant details");
 
 
-    fetch('/restaurant/' + this.props.match.params.id, {
+    fetch('http://localhost:3001/restaurant/' + this.props.match.params.id, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({lat: this.state.lat,lng: this.state.lng, type:"rest", meal_type:"lunch"}),

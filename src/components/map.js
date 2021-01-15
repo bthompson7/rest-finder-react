@@ -16,38 +16,25 @@ let DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-export default class ShowMap extends React.Component {
-    constructor(props) {
-        super(props);
 
-       this.state = {
-           dataLoaded : false,
-           lat:null,
-           lng:null
-       };
-    }
+function CreateAndDisplayMap(props) {
 
-
-    render() {
-     
-        
-        return(
-<div class="map">
-<MapContainer center={[this.props.details['coordinates']['latitude'], this.props.details['coordinates']['longitude']]} zoom={17} scrollWheelZoom={false} style={{ height: "100vh"}}>
-  <TileLayer
-    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-  />
-  <Marker position={[this.props.details['coordinates']['latitude'], this.props.details['coordinates']['longitude']]}>
-    <Popup>
-      {this.props.details['name']}
-    </Popup>
-  </Marker>
-</MapContainer>
-</div>
-
-
-        )
-        }       
+  return (
+    <div class="map">
+    <MapContainer center={[props.details['coordinates']['latitude'], props.details['coordinates']['longitude']]} zoom={17} scrollWheelZoom={false} style={{ height: "100vh"}}>
+      <TileLayer
+        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      <Marker position={[props.details['coordinates']['latitude'], props.details['coordinates']['longitude']]}>
+        <Popup>
+          {props.details['name']}
+        </Popup>
+      </Marker>
+    </MapContainer>
+    </div>
+    
+  );
 }
 
+export default CreateAndDisplayMap;
