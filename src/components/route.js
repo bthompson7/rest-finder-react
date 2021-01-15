@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { Switch, Route,Router,BrowserRouter } from 'react-router-dom'
-import Restaurant from './restaurant_details_noclass.js';
+import Restaurant from './restaurant_details.js';
 import Home from './home';
  
 const Main = () => (

@@ -1,5 +1,6 @@
-import React, { Component, useState, useEffect } from 'react';
-import ReactDOM from "react-dom";
+//using hooks
+
+import React from 'react';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'

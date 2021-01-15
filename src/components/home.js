@@ -12,6 +12,8 @@ export default class home extends React.Component {
         this.state = {
 
           rest_list:[],
+          search_list:[],
+          searchString:"",
           lat:"",
           lng:"",
           dataLoaded:false,
@@ -49,6 +51,32 @@ export default class home extends React.Component {
 
 
 
+search(){
+
+
+
+  if(this.state.search_list.length > 0){
+    this.setState({search_list:[]})
+  }
+
+  for(var i=0; i < this.state.rest_list.length; i++){
+
+    var currentRest = this.state.rest_list[i];
+
+    if(currentRest['name'].toLowerCase().includes(this.state.searchString.toLowerCase())){
+      this.state.search_list.push(currentRest);
+      console.log(this.state.search_list.length);
+    }else if(currentRest['location']['city'].toLowerCase().includes(this.state.searchString.toLowerCase())){
+      this.state.search_list.push(currentRest);
+      console.log(this.state.search_list.length);
+    }
+  
+    //force the page to render with the new search results
+    this.forceUpdate();
+  }
+
+
+}
 
 fetchDataFromYelp(){
 
@@ -67,10 +95,12 @@ fetchDataFromYelp(){
 
 }
 
-
-
-
 changeMealType(meal){
+
+  if(this.state.search_list.length > 0){
+    this.setState({search_list:[]})
+  }
+  
   this.setState({dataLoaded:false})
 
   fetch('http://localhost:3001/getData', {
@@ -97,7 +127,7 @@ render() {
 
           </div>
         )
-      }else{
+      }else if(this.state.search_list.length == 0){
         return(
   
           <div class="main">        
@@ -113,9 +143,52 @@ render() {
           <button class="button" onClick={() => { this.changeMealType('dinner') }}>Dinner</button>
           <h3>Currently displaying {this.state.rest_list.length} restaurants that serve {this.state.currentMealType}</h3>
 
+
+          <input onChange={event => this.setState({searchString:event.target.value})} id="searchInputElement" pattern="[a-zA-Z]+" placeholder="Search for a location or restaurant"></input>
+          <button class="button" onClick={() => { this.search()}}>Search</button>
+
+
           </div>
 
           {this.state.rest_list.map(rest =>
+                  (
+                  <div class="restaurant-list">
+                  <h3>{rest['name']}</h3>
+                  <h3>{rest['location']['address1']} {rest['location']['city']},{rest['location']['state']}</h3>
+
+                  <BrowserRouter>
+                      <Link target="_blank" to={"/details/" + rest['id']}>View Details</Link>
+                   </BrowserRouter>
+  
+                   </div>))
+          
+                   }  
+          </div>
+        )
+      }else{
+        return(
+  
+          <div class="main">        
+          <ScrollUpButton />
+
+           <div class="page-header">
+          <h1>Restaurant Finder</h1>
+          <hr/>
+
+
+          <button class="button" onClick={() => { this.changeMealType('breakfast') }}>Breakfast</button>
+          <button class="button" onClick={() => { this.changeMealType('lunch')}}>Lunch</button>
+          <button class="button" onClick={() => { this.changeMealType('dinner') }}>Dinner</button>
+          <h3>Currently displaying {this.state.search_list.length} restaurants that serve {this.state.currentMealType}</h3>
+
+
+          <input onChange={event => this.setState({searchString:event.target.value})} id="searchInputElement" pattern="[a-zA-Z]+" placeholder="Search for a location or restaurant"></input>
+          <button class="button" onClick={() => { this.search()}}>Search</button>
+
+
+          </div>
+
+          {this.state.search_list.map(rest =>
                   (
                   <div class="restaurant-list">
                   <h3>{rest['name']}</h3>
