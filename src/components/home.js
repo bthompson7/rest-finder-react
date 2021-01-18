@@ -54,8 +54,6 @@ export default class home extends React.Component {
 
 search(){
 
-
-
   if(this.state.search_list.length > 0){
     this.state.search_list = [];
   }
@@ -76,7 +74,6 @@ search(){
     this.forceUpdate();
   }
 
-
 }
 
 fetchDataFromYelp(){
@@ -90,8 +87,6 @@ fetchDataFromYelp(){
         this.setState({rest_list : response});
         this.setState({dataLoaded:true})
         this.setState({currentMealType:"lunch"});
-
-
     }.bind(this));
 
 }
@@ -119,13 +114,11 @@ changeMealType(meal){
 
 render() {
 
-  
       if(!this.state.dataLoaded){
         return (
           <div>
           <h1>Finding Nearby Restaurants...</h1>
           <div class="loader"></div>
-
           </div>
         )
       }else if(this.state.search_list.length == 0){
@@ -155,10 +148,11 @@ render() {
                   (
                   <div class="restaurant-list">
                   <h3>{rest['name']}</h3>
-                  <h3>{rest['location']['address1']} {rest['location']['city']},{rest['location']['state']}</h3>
+                  <h3>{rest['location']['address1']} {rest['location']['address2']} {rest['location']['address3']} {rest['location']['city']},{rest['location']['state']}</h3>
+                  <h3>{rest['rating']} / 5 based on {rest['review_count']} reviews</h3>
 
                   <BrowserRouter>
-                      <Link target="_blank" to={"/details/" + rest['id']}>View Details</Link>
+                      <Link target="_blank" to={"/details/" + rest['id']}>View More Details</Link>
                    </BrowserRouter>
   
                    </div>))

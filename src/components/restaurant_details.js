@@ -5,6 +5,8 @@ import React, {useState, useEffect} from 'react';
 import RestaurantMap from './map.js';
 import ScrollUpButton from "react-scroll-up-button";
 
+import { convert_military_time } from "../utils/time_convert";
+
 
 function DisplayRestaurantDetails(props) {
     const [rest_details, updateRestDetails] = useState([]);
@@ -53,6 +55,9 @@ function DisplayRestaurantDetails(props) {
     )
 }else{
 
+   var open_time = convert_military_time(rest_details['hours'][0]['open'][0]['start']);
+   var close_time = convert_military_time(rest_details['hours'][0]['open'][0]['end']);
+
     return(
         <div>
         <ScrollUpButton />
@@ -63,7 +68,7 @@ function DisplayRestaurantDetails(props) {
         <h3>{rest_details['rating']} / 5 based on {rest_details['review_count']} reviews</h3>
         <h3>Price: {rest_details['price']}</h3>
         <h3>Location: {rest_details['location']['display_address'][0]} {rest_details['location']['display_address'][1]}</h3>
-        <h3>Hours: {rest_details['hours'][0]['open'][0]['start']} until {rest_details['hours'][0]['open'][0]['end']}</h3>
+        <h3>Hours: {open_time} until {close_time}</h3>
 
         <button class="button" onClick={() => {
           
