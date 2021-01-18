@@ -69,7 +69,7 @@ search(){
       this.state.search_list.push(currentRest);
       console.log(this.state.search_list.length);
     }
-  
+
     //force the page to render with the new search results
     this.forceUpdate();
   }
@@ -112,7 +112,70 @@ changeMealType(meal){
   }.bind(this));
 }
 
+
+
 render() {
+
+
+const show_num_of_searches = () => {
+          
+  //no searches were found
+  if(this.state.search_list.length == 0){
+      return(
+        <h3>Currently displaying {this.state.rest_list.length} restaurants that serve {this.state.currentMealType}</h3>
+          ) 
+
+  //oh, look some searches
+  }else{
+    return(
+      <h3>Currently displaying {this.state.search_list.length} restaurants that serve {this.state.currentMealType}</h3>
+    )
+  }
+    
+}
+
+
+const show_restaurant_list = () => {
+          
+  //no searches were found
+  if(this.state.search_list.length == 0){
+      return(
+
+        this.state.rest_list.map(rest =>
+          (
+          <div class="box">
+          <h3>{rest['name']}</h3>
+          <h3>{rest['location']['address1']} {rest['location']['address2']} {rest['location']['address3']} {rest['location']['city']},{rest['location']['state']}</h3>
+          <h3>{rest['rating']} / 5 based on {rest['review_count']} reviews</h3>
+
+          <BrowserRouter>
+              <Link target="_blank" to={"/details/" + rest['id']}>View More Details</Link>
+           </BrowserRouter>
+
+           </div>))
+  
+          
+          ) 
+
+  //oh, look some searches
+  }else{
+    return(
+      this.state.search_list.map(rest =>
+        (
+        <div class="box">
+        <h3>{rest['name']}</h3>
+        <h3>{rest['location']['address1']} {rest['location']['address2']} {rest['location']['address3']} {rest['location']['city']},{rest['location']['state']}</h3>
+        <h3>{rest['rating']} / 5 based on {rest['review_count']} reviews</h3>
+
+        <BrowserRouter>
+            <Link target="_blank" to={"/details/" + rest['id']}>View More Details</Link>
+         </BrowserRouter>
+
+         </div>))  
+    )
+  }
+    
+}
 
       if(!this.state.dataLoaded){
         return (
@@ -121,45 +184,7 @@ render() {
           <div class="loader"></div>
           </div>
         )
-      }else if(this.state.search_list.length == 0){
-        return(
-  
-          <div class="main">        
-          <ScrollUpButton />
 
-           <div class="page-header">
-          <h1>Restaurant Finder</h1>
-          <hr/>
-
-
-          <button class="button" onClick={() => { this.changeMealType('breakfast') }}>Breakfast</button>
-          <button class="button" onClick={() => { this.changeMealType('lunch')}}>Lunch</button>
-          <button class="button" onClick={() => { this.changeMealType('dinner') }}>Dinner</button>
-          <h3>Currently displaying {this.state.rest_list.length} restaurants that serve {this.state.currentMealType}</h3>
-
-
-          <input onChange={event => this.setState({searchString:event.target.value})} pattern={this.state.searchRegex} id="searchInputElement" placeholder="Search for a location or restaurant"></input>
-          <button class="button" onClick={() => { this.search()}}>Search</button>
-
-
-          </div>
-
-          {this.state.rest_list.map(rest =>
-                  (
-                  <div class="restaurant-list">
-                  <h3>{rest['name']}</h3>
-                  <h3>{rest['location']['address1']} {rest['location']['address2']} {rest['location']['address3']} {rest['location']['city']},{rest['location']['state']}</h3>
-                  <h3>{rest['rating']} / 5 based on {rest['review_count']} reviews</h3>
-
-                  <BrowserRouter>
-                      <Link target="_blank" to={"/details/" + rest['id']}>View More Details</Link>
-                   </BrowserRouter>
-  
-                   </div>))
-          
-                   }  
-          </div>
-        )
       }else{
         return(
   
@@ -174,28 +199,15 @@ render() {
           <button class="button" onClick={() => { this.changeMealType('breakfast') }}>Breakfast</button>
           <button class="button" onClick={() => { this.changeMealType('lunch')}}>Lunch</button>
           <button class="button" onClick={() => { this.changeMealType('dinner') }}>Dinner</button>
-          <h3>Currently displaying {this.state.search_list.length} restaurants that serve {this.state.currentMealType}</h3>
 
+          {show_num_of_searches()}
 
-          <input onChange={event => this.setState({searchString:event.target.value})} id="searchInputElement" pattern={this.state.searchRegex} placeholder="Search for a location or restaurant"></input>
+          <input onChange={event => this.setState({searchString:event.target.value})} pattern={this.state.searchRegex} id="searchInputElement" placeholder="Search"></input>
           <button class="button" onClick={() => { this.search()}}>Search</button>
-
 
           </div>
 
-          {this.state.search_list.map(rest =>
-                  (
-                  <div class="restaurant-list">
-                  <h3>{rest['name']}</h3>
-                  <h3>{rest['location']['address1']} {rest['location']['city']},{rest['location']['state']}</h3>
-
-                  <BrowserRouter>
-                      <Link target="_blank" to={"/details/" + rest['id']}>View Details</Link>
-                   </BrowserRouter>
-  
-                   </div>))
-          
-                   }  
+           {show_restaurant_list()}
           </div>
         )
       }

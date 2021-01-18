@@ -45,6 +45,24 @@ function DisplayRestaurantDetails(props) {
           
   }
 
+
+  const is_open = (close_time) =>{
+    if(rest_details['hours'][0]['is_open_now']){
+      return(
+        <div class="is-open">
+          <h3>Open until {close_time}</h3>
+        </div>
+      )
+    }else{
+      return(
+        <div class="is-closed">
+          <h3>This restaurant is currently closed</h3>
+        </div>
+      )
+    }
+
+  }
+
   if(!dataLoaded){
     return (
         <div>
@@ -64,10 +82,11 @@ function DisplayRestaurantDetails(props) {
 
         <h1>{rest_details['name']}</h1>
         <hr/>
+        {is_open(close_time)}
         <h3>Phone: {rest_details['display_phone']}</h3>
         <h3>{rest_details['rating']} / 5 based on {rest_details['review_count']} reviews</h3>
         <h3>Price: {rest_details['price']}</h3>
-        <h3>Location: {rest_details['location']['display_address'][0]} {rest_details['location']['display_address'][1]}</h3>
+        <h3>Location: {rest_details['location']['display_address'][0]} {rest_details['location']['display_address'][1]} {rest_details['location']['display_address'][2]}</h3>
         <h3>Hours: {open_time} until {close_time}</h3>
 
         <button class="button" onClick={() => {
