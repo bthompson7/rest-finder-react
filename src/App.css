@@ -91,7 +91,8 @@
 
 
 .search-element{
-  font-size: medium;
+  font-size: small;
+  width: 200px;
 }
 
 .button:hover {

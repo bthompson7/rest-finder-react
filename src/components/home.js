@@ -202,7 +202,7 @@ const show_restaurant_list = () => {
 
           {show_num_of_searches()}
 
-          <input onChange={event => this.setState({searchString:event.target.value})} pattern={this.state.searchRegex} id="searchInputElement" placeholder="Search"></input>
+          <input class="search-element" onChange={event => this.setState({searchString:event.target.value})} pattern={this.state.searchRegex} id="searchInputElement" placeholder="Search"></input>
           <button class="button" onClick={() => { this.search()}}>Search</button>
 
           </div>
