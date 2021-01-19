@@ -22,7 +22,6 @@ def not_found(e):
 
 @app.route('/restaurant/<string:id>', methods=['POST'])
 def displayRestaurantDetails(id):
-    someData = id
     api = Yelp
     dataFromApi = api.search_by_id(id)
     restHasHoursListed = True
@@ -59,4 +58,4 @@ def getdata():
     return response
 
 if __name__ == '__main__':
-        app.run()
+        app.run(port=3001)

@@ -28,12 +28,40 @@
   color: #61dafb;
 }
 
+.is-open{
+  width: auto;
+  margin: auto;
+  border-width:5px;  
+  border-style: ridge;
+  border-radius: .35rem;
+  border-width: 2px;
+
+  max-width: 600px;
+  background-color:green;
+
+}
+
+
+
+.is-closed{
+
+  width: auto;
+  margin: auto;
+  border-width:5px;  
+  border-style:ridge;
+  border-radius: .35rem;
+  border-width: 2px;
+
+  max-width: 600px;
+  background-color:red;
+}
+
 .images-container img{
   max-width:100%;
   max-height:100%;
 }
 
-.restaurant-list{
+.box{
   margin: auto;
   border-width:5px;  
   border-style:ridge;
@@ -47,9 +75,10 @@
 }
 
 .button {
-  padding: 15px 25px;
+  padding: 12px 25px;
+  margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 18px;
   text-align: center;
   cursor: pointer;
   outline: none;
@@ -60,7 +89,15 @@
   box-shadow: 0 9px #999;
 }
 
-.button:hover {background-color: #3477ad}
+
+.search-element{
+  font-size: small;
+  width: 200px;
+}
+
+.button:hover {
+  background-color: #3477ad
+}
 
 .button:active {
   background-color: #008cff;
