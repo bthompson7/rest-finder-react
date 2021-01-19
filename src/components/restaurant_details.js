@@ -16,7 +16,7 @@ function DisplayRestaurantDetails(props) {
 
    useEffect(() => {
 
-        fetch('http://localhost:3001/restaurant/' + props.match.params.id, {
+        fetch('/restaurant/' + props.match.params.id, {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({lat: null,lng: null, type:"rest", meal_type:"lunch"}),
