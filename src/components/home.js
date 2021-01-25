@@ -78,7 +78,7 @@ search(){
 
 fetchDataFromYelp(){
 
-    fetch('http://localhost:3001/getData', {
+    fetch('/getData', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({lat: this.state.lat,lng: this.state.lng, type:"rest", meal_type:"lunch"}),
@@ -99,7 +99,7 @@ changeMealType(meal){
   
   this.setState({dataLoaded:false})
 
-  fetch('http://localhost:3001/getData', {
+  fetch('/getData', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({lat: this.state.lat,lng: this.state.lng, type:"rest", meal_type:meal}),
@@ -181,7 +181,7 @@ const show_restaurant_list = () => {
         return (
           <div>
           <h1>Finding Nearby Restaurants...</h1>
-          <div class="loading-icon "></div>
+          <div class="loading-icon"></div>
           </div>
         )
 
