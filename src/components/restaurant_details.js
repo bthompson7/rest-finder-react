@@ -9,21 +9,21 @@ import { convert_military_time } from "../utils/time_convert";
 
 
 function DisplayRestaurantDetails(props) {
-    const [rest_details, updateRestDetails] = useState([]);
-    const [dataLoaded, hasDataLoaded] = useState(false);
-    const [showImagesToUser, shouldImagesBeShown] = useState(false);
-    const [showImagesBtn, changeImagesButtonText] = useState("Show Images");
+    const [rest_details, setRest_details] = useState([]);
+    const [dataLoaded, setDataLoaded] = useState(false);
+    const [showImagesToUser, setShowImagesToUser] = useState(false);
+    const [showImagesBtn, setShowImagesBtn] = useState("Show Images");
 
    useEffect(() => {
 
-        fetch('/restaurant/' + props.match.params.id, {
+        fetch('http://localhost:3001/restaurant/' + props.match.params.id, {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({lat: null,lng: null, type:"rest", meal_type:"lunch"}),
         }).then(response => response.json())
         .then(function(response){
-            updateRestDetails(response)
-            hasDataLoaded(true)
+            setRest_details(response)
+            setDataLoaded(true)
   
             document.title = response['name'] + " Details";  
 
@@ -93,11 +93,11 @@ function DisplayRestaurantDetails(props) {
           
 
       if(showImagesToUser){
-        shouldImagesBeShown(false)
-        changeImagesButtonText("Show Images")
+        setShowImagesToUser(false)
+        setShowImagesBtn("Show Images")
       }else if(!showImagesToUser){
-        shouldImagesBeShown(true)
-        changeImagesButtonText("Hide Images")
+        setShowImagesToUser(true)
+        setShowImagesBtn("Hide Images")
       }
 
         }}>{showImagesBtn}</button>
