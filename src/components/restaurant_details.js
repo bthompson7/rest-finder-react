@@ -9,10 +9,10 @@ import { convert_military_time } from "../utils/time_convert";
 
 
 function DisplayRestaurantDetails(props) {
-    const [rest_details, updateRestDetails] = useState([]);
-    const [dataLoaded, hasDataLoaded] = useState(false);
-    const [showImagesToUser, shouldImagesBeShown] = useState(false);
-    const [showImagesBtn, changeImagesButtonText] = useState("Show Images");
+    const [rest_details, setRest_details] = useState([]);
+    const [dataLoaded, setDataLoaded] = useState(false);
+    const [showImagesToUser, setShowImagesToUser] = useState(false);
+    const [showImagesBtn, setShowImagesBtn] = useState("Show Images");
 
    useEffect(() => {
 
@@ -22,13 +22,10 @@ function DisplayRestaurantDetails(props) {
           body: JSON.stringify({lat: null,lng: null, type:"rest", meal_type:"lunch"}),
         }).then(response => response.json())
         .then(function(response){
-            updateRestDetails(response)
-            hasDataLoaded(true)
-  
-            document.title = response['name'] + " Details";  
-
+            setRest_details(response)
+            setDataLoaded(true)
+            document.title = response['name'];  
         });
-
     }, []);
       
     const displayImages = (photosArray) => {
@@ -41,8 +38,7 @@ function DisplayRestaurantDetails(props) {
                 <img alt="" src={photosArray[2]}></img>
                 </div>
                 ) 
-        }
-          
+        }       
   }
 
 
@@ -60,17 +56,16 @@ function DisplayRestaurantDetails(props) {
         </div>
       )
     }
-
   }
 
   if(!dataLoaded){
     return (
         <div>
         <h1>Loading Restaurant Information...</h1>
-        <div class="loader"></div>
+        <div class="loading-icon"></div>
         </div>
-
     )
+
 }else{
 
    var open_time = convert_military_time(rest_details['hours'][0]['open'][0]['start']);
@@ -93,11 +88,11 @@ function DisplayRestaurantDetails(props) {
           
 
       if(showImagesToUser){
-        shouldImagesBeShown(false)
-        changeImagesButtonText("Show Images")
+        setShowImagesToUser(false)
+        setShowImagesBtn("Show Images")
       }else if(!showImagesToUser){
-        shouldImagesBeShown(true)
-        changeImagesButtonText("Hide Images")
+        setShowImagesToUser(true)
+        setShowImagesBtn("Hide Images")
       }
 
         }}>{showImagesBtn}</button>

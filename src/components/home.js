@@ -181,7 +181,7 @@ const show_restaurant_list = () => {
         return (
           <div>
           <h1>Finding Nearby Restaurants...</h1>
-          <div class="loader"></div>
+          <div class="loading-icon"></div>
           </div>
         )
 
