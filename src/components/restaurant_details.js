@@ -24,11 +24,8 @@ function DisplayRestaurantDetails(props) {
         .then(function(response){
             setRest_details(response)
             setDataLoaded(true)
-  
-            document.title = response['name'] + " Details";  
-
+            document.title = response['name'];  
         });
-
     }, []);
       
     const displayImages = (photosArray) => {
@@ -41,8 +38,7 @@ function DisplayRestaurantDetails(props) {
                 <img alt="" src={photosArray[2]}></img>
                 </div>
                 ) 
-        }
-          
+        }       
   }
 
 
@@ -60,17 +56,16 @@ function DisplayRestaurantDetails(props) {
         </div>
       )
     }
-
   }
 
   if(!dataLoaded){
     return (
         <div>
         <h1>Loading Restaurant Information...</h1>
-        <div class="loader"></div>
+        <div class="loading-icon"></div>
         </div>
-
     )
+    
 }else{
 
    var open_time = convert_military_time(rest_details['hours'][0]['open'][0]['start']);
