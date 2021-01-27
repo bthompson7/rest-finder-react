@@ -166,16 +166,16 @@ const show_restaurant_list = () => {
     return(
       this.state.search_list.map(rest =>
         (
-        <div class="box">
-        <h3>{rest['name']}</h3>
-        <h3>{rest['location']['address1']} {rest['location']['address2']} {rest['location']['address3']} {rest['location']['city']},{rest['location']['state']}</h3>
-        <h3>{rest['rating']} / 5 based on {rest['review_count']} reviews</h3>
+          <div class="box">
+          <h3>{rest['name']}</h3>
+          <h3>{rest['address']}{rest['city']},{rest['state']}</h3>
+          <h3>{rest['rating']} / 5 based on {rest['num_of_reviews']} reviews</h3>
 
-        <BrowserRouter>
-            <Link target="_blank" to={"/details/" + rest['id']}>View More Details</Link>
-         </BrowserRouter>
+          <BrowserRouter>
+              <Link target="_blank" to={"/details/" + rest['id']}>View More Details</Link>
+           </BrowserRouter>
 
-         </div>))  
+           </div>))  
     )
   }
     
