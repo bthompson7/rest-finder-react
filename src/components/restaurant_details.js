@@ -14,14 +14,17 @@ function DisplayRestaurantDetails(props) {
     const [showImagesToUser, setShowImagesToUser] = useState(false);
     const [showImagesBtn, setShowImagesBtn] = useState("Show Images");
 
+    //new api format:
+    //http://localhost:8080/api/v1/getSingleRestaurant?id=BwJnhjN-ogCmvYY864Lkww
    useEffect(() => {
 
-        fetch('/restaurant/' + props.match.params.id, {
-          method: 'POST',
+        fetch('http://localhost:8080/api/v1/getSingleRestaurant?id=' + props.match.params.id, {
+          method: 'GET',
           headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({lat: null,lng: null, type:"rest", meal_type:"lunch"}),
         }).then(response => response.json())
         .then(function(response){
+
+
             setRest_details(response)
             setDataLoaded(true)
             document.title = response['name'];  
@@ -43,7 +46,7 @@ function DisplayRestaurantDetails(props) {
 
 
   const is_open = (close_time) =>{
-    if(rest_details['hours'][0]['is_open_now']){
+    if(rest_details['is_open_now']){
       return(
         <div class="is-open">
           <h3>Open until {close_time}</h3>
@@ -68,8 +71,8 @@ function DisplayRestaurantDetails(props) {
 
 }else{
 
-   var open_time = convert_military_time(rest_details['hours'][0]['open'][0]['start']);
-   var close_time = convert_military_time(rest_details['hours'][0]['open'][0]['end']);
+   var open_time = convert_military_time(rest_details['open_time']);
+   var close_time = convert_military_time(rest_details['close_time']);
 
     return(
         <div>
@@ -78,10 +81,10 @@ function DisplayRestaurantDetails(props) {
         <h1>{rest_details['name']}</h1>
         <hr/>
         {is_open(close_time)}
-        <h3>Phone: {rest_details['display_phone']}</h3>
-        <h3>{rest_details['rating']} / 5 based on {rest_details['review_count']} reviews</h3>
+        <h3>Phone: {rest_details['phone']}</h3>
+        <h3>{rest_details['overall_rating']}</h3>
         <h3>Price: {rest_details['price']}</h3>
-        <h3>Location: {rest_details['location']['display_address'][0]} {rest_details['location']['display_address'][1]} {rest_details['location']['display_address'][2]}</h3>
+        <h3>Location: {rest_details['location'] + " " + rest_details['city'] + "," + rest_details['state']}</h3>
         <h3>Hours: {open_time} until {close_time}</h3>
 
         <button class="button" onClick={() => {

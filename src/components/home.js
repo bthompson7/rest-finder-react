@@ -65,7 +65,7 @@ search(){
     if(currentRest['name'].toLowerCase().includes(this.state.searchString.toLowerCase())){
       this.state.search_list.push(currentRest);
       console.log(this.state.search_list.length);
-    }else if(currentRest['location']['city'].toLowerCase().includes(this.state.searchString.toLowerCase())){
+    }else if(currentRest['city'].toLowerCase().includes(this.state.searchString.toLowerCase())){
       this.state.search_list.push(currentRest);
       console.log(this.state.search_list.length);
     }
@@ -76,15 +76,20 @@ search(){
 
 }
 
+//new api format: 
+//http://localhost:8080/api/v1/getRestaurantData?lat=43.680030&lng=-70.442170&food_type=dinner
 fetchDataFromYelp(){
 
-    fetch('/getData', {
-      method: 'POST',
+    fetch('http://localhost:8080/api/v1/getRestaurantData?lat= '+ this.state.lat + '&lng=' + this.state.lng + '&meal_type=lunch', {
+      method: 'GET',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({lat: this.state.lat,lng: this.state.lng, type:"rest", meal_type:"lunch"}),
     }).then(response => response.json())
     .then(function(response){
+
+        
         this.setState({rest_list : response});
+        console.log(this.state.rest_list['businesses'])
+
         this.setState({dataLoaded:true})
         this.setState({currentMealType:"lunch"});
     }.bind(this));
@@ -99,10 +104,9 @@ changeMealType(meal){
   
   this.setState({dataLoaded:false})
 
-  fetch('/getData', {
-    method: 'POST',
+  fetch('http://localhost:8080/api/v1/getRestaurantData?lat= '+ this.state.lat + '&lng=' + this.state.lng + '&food_type=' + meal, {
+    method: 'GET',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({lat: this.state.lat,lng: this.state.lng, type:"rest", meal_type:meal}),
   }).then(response => response.json())
   .then(function(response){
       this.setState({rest_list : response});
@@ -145,8 +149,8 @@ const show_restaurant_list = () => {
           (
           <div class="box">
           <h3>{rest['name']}</h3>
-          <h3>{rest['location']['address1']} {rest['location']['address2']} {rest['location']['address3']} {rest['location']['city']},{rest['location']['state']}</h3>
-          <h3>{rest['rating']} / 5 based on {rest['review_count']} reviews</h3>
+          <h3>{rest['address']}{rest['city']},{rest['state']}</h3>
+          <h3>{rest['rating']} / 5 based on {rest['num_of_reviews']} reviews</h3>
 
           <BrowserRouter>
               <Link target="_blank" to={"/details/" + rest['id']}>View More Details</Link>

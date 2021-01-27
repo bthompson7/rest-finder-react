@@ -22,12 +22,12 @@ function CreateAndDisplayMap(props) {
 
   return (
     <div class="map">
-    <MapContainer center={[props.details['coordinates']['latitude'], props.details['coordinates']['longitude']]} zoom={17} scrollWheelZoom={false} style={{ height: "100vh"}}>
+    <MapContainer center={[props.details['lat'], props.details['lng']]} zoom={17} scrollWheelZoom={false} style={{ height: "100vh"}}>
       <TileLayer
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={[props.details['coordinates']['latitude'], props.details['coordinates']['longitude']]}>
+      <Marker position={[props.details['lat'], props.details['lng']]}>
         <Popup>
           {props.details['name']}
         </Popup>
